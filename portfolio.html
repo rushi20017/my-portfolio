@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M. Rushi Chowdary - Portfolio</title>
+    <style>
+        /* Reset CSS */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --light-background-color: #f5f5f5;
+            --light-text-color: #000;
+            --light-primary-color: #7dbb00;
+            --light-secondary-color: #009688;
+            --light-accent-color: #3f51b5;
+            --light-tertiary-color: #ff6d00;
+
+            --dark-background-color: #121212;
+            --dark-text-color: #fff;
+            --dark-primary-color: #7dbb00;
+            --dark-secondary-color: #009688;
+            --dark-accent-color: #3f51b5;
+            --dark-tertiary-color: #ff6d00;
+        }
+
+        body {
+            font-family: Roboto, sans-serif;
+            background-color: var(--light-background-color);
+            color: var(--light-text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding-top: 60px; /* Add space for fixed header */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-background-color);
+            color: var(--dark-text-color);
+        }
+
+        header {
+            background-color: #121212;
+            color: #fff;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            height: 10%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        header.dark-mode {
+            background-color: var(--dark-accent-color);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            position: fixed;
+            top: 5vh;
+            right: 2vw;
+        }
+
+        header nav ul li {
+            margin-left: 15px;
+        }
+
+        header nav ul li:first-child {
+            margin-top: 0;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        header nav ul li a:hover {
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        section {
+            padding: 50px 20px; /* Adjusted padding */
+            text-align: center;
+            transition: opacity 0.5s;
+            position: relative;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        section.dark-mode {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        section h2 {
+            margin-bottom: 30px; /* Adjusted margin */
+            font-size: 2rem; /* Adjusted font size */
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .about-summary {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .about-summary img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-right: 20px;
+            float: left;
+        }
+
+        .about-summary p {
+            font-size: 1rem; /* Adjusted font size */
+            line-height: 1.6;
+        }
+
+        .glass-tile {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px;
+            transition: background-color 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .glass-tile:hover {
+            background-color: #f2f2f2;
+        }
+
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .skills-list li {
+            background-color: var(--light-primary-color);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+        }
+
+        .skills-list li:hover {
+            background-color: #1565c0;
+        }
+
+        .projects-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            max-height: 400px; /* Adjust height as needed */
+            overflow-y: auto;
+        }
+
+        .projects-list li {
+            background-color: var(--light-primary-color); /* Blue color */
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+            text-align: left;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .projects-list li .project-info {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: top 0.3s;
+        }
+
+        .projects-list li:hover .project-info {
+            display: block;
+            top: calc(100% + 10px);
+        }
+
+        .projects-list li:hover {
+            background-color: #1976d2; /* Darker blue hover color */
+        }
+
+        .contact-info {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .contact-info li {
+            font-size: 1.1rem;
+        }
+
+        .contact-info li a {
+            color: var(--light-primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info li a:hover {
+            color: #1565c0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            color: #000;
+            resize: none;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--light-primary-color);
+            outline: none;
+        }
+
+        .contact-form button {
+            background-color: var(--light-primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #1565c0;
+        }
+
+        /* SVG Shapes */
+        #background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Animation */
+        @keyframes move {
+            0% {
+                transform: translateY(-5);
+            }
+            50% {
+                transform: translateY(-40px);
+            }
+            100% {
+                transform: translateY(1);
+            }
+        }
+
+        .shape {
+            animation: move 8s ease-in-out infinite alternate;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <!-- SVG Shapes -->
+    <svg id="background-shapes" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Circle -->
+        <circle class="shape" cx="200" cy="200" r="100" fill="#7dbb00"/>
+        <!-- Rectangle -->
+        <rect class="shape" x="800" y="800" width="200" height="100" fill="#009688"/>
+        <!-- Triangle -->
+        <polygon class="shape" points="1200,200 1100,300 1300,300" fill="#3f51b5"/>
+        <!-- Pentagon -->
+        <polygon class="shape" points="1600,800 1500,900 1400,850 1400,750 1500,700" fill="#ff6d00"/>
+    </svg>
+
+    <header>
+        <h1>M. Rushi Chowdary</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-summary">
+            <img src="profile_picture.jpg" alt="Profile Picture">
+            <p>
+                Hello! I am M. Rushi Chowdary, a recent graduate specializing in full-stack Java development.
+                I hold a Bachelor's degree in Computer Science and Engineering with a focus on Artificial Intelligence and Machine Learning, along with a Diploma in Mechanical Engineering.
+                Although my professional journey is just beginning, I am eager to apply my skills and knowledge to real-world projects.
+                My interest in technology sparked during my academic years, where I developed a strong foundation in programming and software development.
+                I am passionate about creating innovative solutions and exploring new technologies in the software development domain.
+                Beyond coding, I enjoy staying updated with the latest industry trends and enhancing my skills through personal projects and continuous learning.
+            </p>
+        </div>
+    </section>
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul class="skills-list">
+            <li class="glass-tile">HTML/CSS (Starter)</li>
+            <li class="glass-tile">JavaScript (Starter)</li>
+            <li class="glass-tile">Node.js (Starter)</li>
+            <li class="glass-tile">Python (Starter)</li>
+            <li class="glass-tile">Java (Starter)</li>
+            <li class="glass-tile">C/C++ (Starter)</li>
+        </ul>
+    </section>
+    <section id="projects">
+        <h2>Projects Showcase</h2>
+        <ul class="projects-list">
+            <li class="glass-tile" data-info="A simple data sharing scheme using Mobile Cloud Computing">A simple data sharing scheme using Mobile Cloud Computing</li>
+            <li class="glass-tile" data-info="Diabetes Disease Prediction using Machine Learning">Diabetes Disease Prediction using Machine Learning</li>
+            <li class="glass-tile" data-info="To-Do List using Python">To-Do List using Python</li>
+        </ul>
+        <div id="project-info"></div>
+    </section>
+    <section id="contact">
+        <h2>Contact</h2>
+        <div class="contact-form">
+            <h3>Send me a message:</h3>
+            <form action="#" method="post" id="contact-form">
+                <div>
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name" required><br>
+                </div>
+                <div>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required><br>
+                </div>
+                <div>
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message" rows="4" required></textarea><br>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+        <ul class="contact-info">
+            <li>Phone: <a href="tel:9866424447">9866424447</a></li>
+            <li>Email: <a href="mailto:mandavarushi@gmail.com">mandavarushi@gmail.com</a></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/rushi-mandava-9862411bb" target="_blank">Rushi Mandava</a></li>
+        </ul>
+    </section>
+
+    <script>
+        // Map project titles to their details
+        const projectDetails = {
+            "A simple data sharing scheme using Mobile Cloud Computing": "Implemented a data sharing scheme leveraging mobile cloud computing technologies. The project utilized RESTful APIs and cloud storage to facilitate seamless data exchange between mobile devices and cloud servers.",
+            "Diabetes Disease Prediction using Machine Learning": "Developed a machine learning model for predicting diabetes based on patient data. The project involved data preprocessing, feature engineering, model training using Python libraries such as Scikit-learn and TensorFlow, and evaluation of model performance.",
+            "To-Do List using Python": "Created a simple to-do list application using Python for task management. The project utilized object-oriented programming concepts to implement task manipulation functionalities such as adding, editing, and deleting tasks. The user interface was built using the Tkinter library."
+        };
+
+        // Function to show project details
+        const projectsList = document.querySelectorAll('.projects-list .glass-tile');
+        const projectInfo = document.getElementById('project-info');
+        projectsList.forEach(item => {
+            const info = item.getAttribute('data-info');
+            const details = projectDetails[info] || 'No details available.';
+            item.addEventListener('mouseenter', () => {
+                projectInfo.textContent = details;
+            });
+        });
+
+        // Move background shapes like bubbles
+        const shapes = document.querySelectorAll('.shape');
+        shapes.forEach(shape => {
+            const startPosX = Math.random() * window.innerWidth;
+            const startPosY = Math.random() * window.innerHeight;
+            const speed = 0.1 + Math.random() * 0.5;
+            const directionX = Math.random() < 0.5 ? -1 : 1;
+            const directionY = Math.random() < 0.5 ? -1 : 1;
+
+            shape.style.transform = `translate(${startPosX}px, ${startPosY}px)`;
+
+            function update() {
+                const rect = shape.getBoundingClientRect();
+                const posX = rect.left + directionX * speed;
+                const posY = rect.top + directionY * speed;
+
+                if (posX < 0 || posX > window.innerWidth - rect.width) {
+                    directionX *= -1;
+                }
+
+                if (posY < 0 || posY > window.innerHeight - rect.height) {
+                    directionY *= -1;
+                }
+
+                shape.style.transform = `translate(${posX}px, ${posY}px)`;
+                requestAnimationFrame(update);
+            }
+
+            update();
+        });
+    </script>
+</body>
+</html>
