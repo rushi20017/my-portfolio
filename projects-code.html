@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Code - M. Rushi Chowdary</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to the common CSS file -->
+    <style>
+        body {
+            padding: 20px;
+            background-color: #121212;
+            color: #fff;
+        }
+
+        h1, h2 {
+            color: var(--dark-primary-color);
+            text-align: center;
+        }
+
+        .code-section {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        pre {
+            background-color: #333;
+            padding: 10px;
+            color: #fff;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--light-primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-btn:hover {
+            background-color: #1976d2;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .code-section {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Project Code</h1>
+    <h2>File Sharing System</h2>
+
+    <div class="code-section">
+        <h3>Code Snippet</h3>
+        <pre><code>
+// Example Python code for File Sharing System encryption
+from cryptography.fernet import Fernet
+
+# Function to generate a key
+def generate_key():
+    key = Fernet.generate_key()
+    return key
+
+# Function to encrypt data
+def encrypt_data(data, key):
+    fernet = Fernet(key)
+    encrypted = fernet.encrypt(data.encode())
+    return encrypted
+
+# Function to decrypt data
+def decrypt_data(encrypted_data, key):
+    fernet = Fernet(key)
+    decrypted = fernet.decrypt(encrypted_data).decode()
+    return decrypted
+
+# Example usage:
+key = generate_key()
+data = "This is a secret message"
+encrypted_data = encrypt_data(data, key)
+print("Encrypted:", encrypted_data)
+print("Decrypted:", decrypt_data(encrypted_data, key))
+        </code></pre>
+    </div>
+
+    <a href="index.html" class="back-btn">← Back to Portfolio</a>
+</body>
+</html>
